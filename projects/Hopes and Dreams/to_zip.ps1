@@ -1,0 +1,2 @@
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+[System.IO.Compression.ZipFile]::CreateFromDirectory("E:\Programs\important\newfile\∫Ï Ø“Ù¿÷≥Ã–Ú\Hopes and Dreams\mcpack\hsyy_hopes_and_dreams", "E:\Programs\important\newfile\∫Ï Ø“Ù¿÷≥Ã–Ú\Hopes and Dreams\mcpack\hsyy_hopes_and_dreams.mcaddon")

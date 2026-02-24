@@ -1,0 +1,79 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+            "identifier": "kami.timepoint_kami.notin",
+            "basic_render_parameters": {
+                "material": "particles_alpha",
+                "texture": "textures/particle/mao"
+            }
+        },
+        "curves": {
+            "variable.color_curve": {
+                "type": "linear",
+                "nodes": [
+                    0,
+                    1.25,
+                    0,
+                    1
+                ],
+                "input": "variable.particle_age",
+                "horizontal_range": "variable.particle_lifetime"
+            }
+        },
+        "components": {
+            "minecraft:emitter_lifetime_once": {
+                "active_time": "kami.xdistance*0.5"
+            },
+            "minecraft:emitter_rate_steady": {
+                "spawn_rate": 32,
+                "max_particles": 10000
+            },
+            "minecraft:particle_lifetime_expression": {
+                "max_lifetime": "Math.random(20,22)"
+            },
+            "minecraft:emitter_shape_point": {
+                "offset": [
+                    "Math.cos((1-variable.emitter_age/variable.emitter_lifetime)*180)*(kami.xdistance/2)+(kami.xdistance/2)",
+                    "kami.updownmode*Math.sin((1-variable.emitter_age/variable.emitter_lifetime)*180)*(kami.xzdistance/2)",
+                    "Math.cos((1-variable.emitter_age/variable.emitter_lifetime)*180)*(kami.zdiatance/2)+(kami.zdiatance/2)"
+                ]
+            },
+            "minecraft:particle_motion_dynamic": {
+                "linear_acceleration": [
+                  0,
+                  0,
+                  0
+                ],
+                "linear_drag_coefficient": 0
+            },
+            "minecraft:particle_appearance_billboard": {
+                "size": [
+                    "0.25 * ((25-0.25*variable.particle_age)/25)",
+                    "0.25 * ((25-0.25*variable.particle_age)/25)"
+                ],
+                "facing_camera_mode": "rotate_xyz",
+                "uv": {
+                    "texture_width": 8,
+                    "texture_height": 8,
+                    "uv": [
+                        0,
+                        0
+                    ],
+                    "uv_size": [
+                        8,
+                        8
+                    ]
+                }
+            },
+            "minecraft:particle_appearance_tinting": {
+                "color": {
+                    "gradient": [
+                        "kami.color"
+                    ],
+                    "interpolant": "variable.color_curve"
+                }
+            }
+        }
+    }
+}

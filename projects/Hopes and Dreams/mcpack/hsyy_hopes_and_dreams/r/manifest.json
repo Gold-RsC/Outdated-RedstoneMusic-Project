@@ -1,0 +1,27 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "by Gold_RsC",
+        "name": "hsyy_hopes_and_dreams Res",
+        "uuid": "5187b3c9-2ba9-f5f9-df83-8fb959ea0198",
+        "min_engine_version": [
+            1,
+            21,
+            50
+        ],
+        "version": [
+            1,
+            0,
+            0
+        ]
+    },
+    "modules": [{
+        "type": "resources",
+        "uuid": "a7c77a56-f705-2ced-3c07-f11293545695",
+        "version": [
+            1,
+            0,
+            0
+        ]
+    }]
+}

@@ -1,0 +1,18 @@
+tick2time:
+idx==0?
+	0
+	:lastTime
++deltaTick
+	/1000.0*timePerTick
+time2beat:
+idx==0?
+	0
+	:lastBeat
++deltaTime
+	*(beatPerMinute/6e4)
+beat2bar:
+idx==0?
+	0
+	:lastBar
++deltaBeat
+	/ts_nnn

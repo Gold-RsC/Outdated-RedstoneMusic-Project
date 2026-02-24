@@ -1,0 +1,17 @@
+{
+  "format_version": 1,
+  "header": {
+    "description": "funset",
+    "name": "set",
+    "uuid": "3b55a87e-ad14-4bd7-935c-9307f8dd30ea",
+    "version": [0, 0, 1]
+  },
+  "modules": [
+    {
+      "description": "set",
+      "type": "data",
+      "uuid": "8ac66f16-71c3-463b-97e7-fbd65ca09354",
+      "version": [1, 0, 0]
+    }
+  ]
+}

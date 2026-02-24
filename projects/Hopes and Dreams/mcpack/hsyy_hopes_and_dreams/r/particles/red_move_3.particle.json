@@ -1,0 +1,48 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+            "identifier": "red_move_3",
+            "basic_render_parameters": {
+                "material": "particles_alpha",
+                "texture": "textures/particles/heart/spr_ourheart_0.png"
+            }
+        },
+        "curves": {
+			"variable.curve": {
+				"type": "bezier",
+				"input": "v.particle_age",
+				"horizontal_range": "v.particle_lifetime",
+				"nodes": [0, 0, 1, 1]
+			}
+		},
+		"components": {
+			"minecraft:emitter_rate_instant": {
+				"num_particles": 1
+			},
+			"minecraft:emitter_lifetime_once": {
+				"active_time": 0.400000
+			},
+			"minecraft:emitter_shape_point": {
+				"direction": [0, 0, 1]
+			},
+			"minecraft:particle_lifetime_expression": {
+				"max_lifetime": 0.400000
+			},
+			"minecraft:particle_motion_parametric": {
+				"relative_position": [0, 0, "3.000000*variable.curve"]
+			},
+			"minecraft:particle_appearance_billboard": {
+				"size": [0.5, 0.5],
+				"facing_camera_mode": "rotate_y",
+				"uv": {
+					"texture_width": 16,
+					"texture_height": 16,
+					"uv": [0, 0],
+					"uv_size": [16, 16]
+				}
+			}
+        }
+    }
+}
+ÿ

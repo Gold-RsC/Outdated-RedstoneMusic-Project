@@ -1,0 +1,18 @@
+{
+    "format_version": 1,
+    "header": {
+        "description": "More Colorful Lights",
+        "name": "Kami Midi Channel Blocks Resource",
+        "uuid": "2281e703-a42d-4683-96eb-e18daa08cdd0",
+        "version": [0, 0, 1],
+        "min_engine_version": [0, 0, 1]
+    },
+    "modules": [
+        {
+            "description": "kami",
+            "type": "resources",
+            "uuid": "2a407c8d-8b0a-44f0-b773-25cc1e81d5ec",
+            "version": [0, 0, 1]
+        }
+    ]
+}

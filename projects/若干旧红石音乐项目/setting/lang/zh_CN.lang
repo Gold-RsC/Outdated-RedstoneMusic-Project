@@ -1,0 +1,9 @@
+text.testtext.normal=测试中文1
+text.testtext2.normal=测试中文2
+text.importmido.error=未找到mido模块，正在尝试安装...
+text.installmido.success=mido模块安装成功
+text.inputmidifilename.request=先把mid文件放入解压后的"midi"文件夹\n请输入mid文件名称(无需加.mid):
+text.inputmidifilename.requestagain=未找到mid文件，请再次输入:
+text.inputkevfilename.request=直接输入kev文件夹中的kev文件名:
+text.inputkevfilename.requestagain=未找到kev文件，请再次输入
+text.done.return=完成!

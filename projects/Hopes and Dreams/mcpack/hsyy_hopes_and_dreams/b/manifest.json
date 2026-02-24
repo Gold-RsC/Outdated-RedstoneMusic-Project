@@ -1,0 +1,31 @@
+﻿{
+    "format_version": 2,
+    "header": {
+        "description": "by Gold_RsC",
+        "name": "hsyy_hopes_and_dreams Beh",
+        "uuid": "8f49e3ba-d902-eb92-48a6-1057036ad7e8",
+        "min_engine_version": [
+            1,
+            21,
+            50
+        ],
+        "version": [
+            1,
+            0,
+            0
+        ]
+    },
+    "modules": [{
+        "type": "data",
+        "uuid": "c456b3ab-fae2-7ab7-efdf-00b343735639",
+        "version": [
+            1,
+            0,
+            0
+        ]
+    }],
+    "dependencies": [{
+        "uuid": "5187b3c9-2ba9-f5f9-df83-8fb959ea0198",
+        "version": [1, 0, 0]
+    }]
+}}

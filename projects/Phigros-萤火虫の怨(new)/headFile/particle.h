@@ -1,0 +1,304 @@
+#ifndef PARTICLE_H
+#define PARTICLE_H
+#include<fstream>
+#include<sstream>
+#include<vector>
+namespace particle {
+#define PI 3.1415926535897931
+	template<typename...T>
+	class String;
+	template<>
+	class String<> {};
+	template<typename Va,typename...T>
+	class String<Va,T...>:String<T...> {
+			Va _value;
+		public:
+			String(Va arg,T...args)
+				:_value(arg),String<T...>(args...) {}
+			Va&value(void) {
+				return _value;
+			}
+			String<T...>&next(void) {
+				return *this;
+			}
+	};
+	template<typename Va>
+	std::ostream&operator<<(std::ostream&out,String<Va> a) {
+		return out<<a.value();
+	}
+	template<typename Va,typename...T>
+	std::ostream&operator<<(std::ostream&out,String<Va,T...> a) {
+		return out<<a.value()<<a.next();
+	}
+	template<typename Va>
+	std::string&operator<<(std::string&str,String<Va> a) {
+		std::stringstream stream;
+		stream<<a.value();
+		std::string b;
+		stream>>b;
+		str+=b;
+		return str;
+	}
+	template<typename Va>
+	std::string&operator>>(String<Va> a,std::string&str) {
+		std::stringstream stream;
+		stream<<a.value();
+		std::string b;
+		stream>>b;
+		str+=b;
+		return str;
+	}
+	template<typename Va,typename...T>
+	std::string&operator<<(std::string&str,String<Va,T...> a) {
+		std::stringstream stream;
+		stream<<a.value()<<a.next();
+		std::string b;
+		stream>>b;
+		str+=b;
+		return str;
+	}
+	template<typename Va,typename...T>
+	std::string&operator>>(String<Va,T...> a,std::string&str) {
+		std::stringstream stream;
+		stream<<a.value()<<a.next();
+		std::string b;
+		stream>>b;
+		str+=b;
+		return str;
+	}
+	class Color {
+		public:
+			int r,g,b;
+			double a;
+		public:
+			Color(int _r,int _g,int _b,double _a) {
+				r=_r,
+				g=_g,
+				b=_b,
+				a=_a;
+			}
+			friend std::ostream&operator<<(std::ostream&out,Color c) {
+				return out<<"\"color\": ["<<(c.r/255.0)<<", "<<(c.g/255.0)<<", "<<(c.b/255.0)<<", "<<c.a<<"]";
+			}
+	};
+	class VariousColor {
+		public:
+			struct __Pair {
+				double time;
+				std::string color;
+				friend std::ostream&operator<<(std::ostream&out,__Pair p) {
+					out<<"\""<<p.time<<"\": \""<<p.color<<"\"";
+				}
+			};
+			VariousColor(std::initializer_list<__Pair>_list) {
+				list=_list;
+			}
+			friend std::ostream&operator<<(std::ostream&out,VariousColor c) {
+				out<<"\"color\": {\n                    \"interpolant\": \"variable.particle_age/variable.particle_lifetime\",\n                    \"gradient\": {\n";
+				for(int p=0; p<c.list.size(); p++) {
+					out<<"                        "<<c.list[p]<<(p!=c.list.size()-1?",\n":"\n");
+				}
+				out<<"                    }\n                }";
+
+			}
+		private:
+			std::vector<__Pair>list;
+	};
+	class Offset {
+			std::string x,y,z;
+			void change(std::string&in,std::string&out) {
+				for(int i=0; i<in.length(); i++) {
+					out+=in[i];
+				}
+			}
+		public:
+			template<typename Vax,typename...Tx,typename Vay,typename...Ty,typename Vaz,typename...Tz>
+			Offset(String<Vax,Tx...> _x,String<Vay,Ty...> _y,String<Vaz,Tz...> _z) {
+				std::string __x,__y,__z;
+				__x<<_x;
+				__y<<_y;
+				__z<<_z;
+				change(__x,x);
+				change(__y,y);
+				change(__z,z);
+			}
+			friend std::ostream&operator<<(std::ostream&out,Offset a) {
+				return out<<"\""<<a.x<<"\", \""<<a.y<<"\", \""<<a.z<<"\"";
+			}
+	};
+	class Motion {
+			std::string x,y,z,drag;
+			void change(std::string&in,std::string&out) {
+				for(int i=0; i<in.length(); i++) {
+					out+=in[i];
+				}
+			}
+		public:
+			template<typename Vax,typename...Tx,typename Vay,typename...Ty,typename Vaz,typename...Tz,typename Vad,typename...Td>
+			Motion(String<Vax,Tx...> _x,String<Vay,Ty...> _y,String<Vaz,Tz...> _z,String<Vad,Td...>_drag) {
+				std::string __x,__y,__z,__drag;
+				__x<<_x;
+				__y<<_y;
+				__z<<_z;
+				__drag<<_drag;
+				change(__x,x);
+				change(__y,y);
+				change(__z,z);
+				change(__drag,drag);
+			}
+			friend std::ostream&operator<<(std::ostream&out,Motion a) {
+				return out<<"\"linear_acceleration\": [\n					\""<<a.x<<"\", \""<<a.y<<"\", \""<<a.z<<"\"\n				],\n				\"linear_drag_coefficient\": "<<a.drag;
+			}
+	};
+	class Size {
+			std::string x,y;
+			void change(std::string&in,std::string&out) {
+				for(int i=0; i<in.length(); i++) {
+					out+=in[i];
+				}
+			}
+		public:
+			template<typename Vax,typename...Tx,typename Vay,typename...Ty>
+			Size(String<Vax,Tx...> _x,String<Vay,Ty...> _y) {
+				std::string __x,__y;
+				__x<<_x;
+				__y<<_y;
+				change(__x,x);
+				change(__y,y);
+			}
+			friend std::ostream&operator<<(std::ostream&out,Size a) {
+				return out<<"\""<<a.x<<"\", \""<<a.y<<"\"";
+			}
+	};
+	class UV{
+		private:
+			int width,height;
+			int uv_x,uv_y;
+			int size_x,size_y;
+		public:
+			UV(int _width,int _height,int _uv_x,int _uv_y,int _size_x,int _size_y){
+				width=_width;
+				height=_height;
+				uv_x=_uv_x;
+				uv_y=_uv_y;
+				size_x=_size_x;
+				size_y=_size_y;
+			}
+			friend std::ostream&operator<<(std::ostream&out,UV a){
+				return out<<"\"uv\": {\n                    \"texture_width\": "<<a.width<<",\n                    \"texture_height\": "<<a.height<<",\n                    \"uv\": [\n                        "<<a.uv_x<<",\n                        "<<a.uv_y<<"\n                    ],\n                    \"uv_size\": [\n                        "<<a.size_x<<",\n                        "<<a.size_y<<"\n                    ]\n                }";
+			}
+			
+	};
+	template<typename T1,typename...T>
+	void useTemplateEach(std::ifstream&r,std::ofstream&w,T1 arg) {
+		char a='#';
+		while(!r.eof()&&a!='@') {
+			a=r.get();
+			if(a=='%') {
+				a=r.get();
+				switch(a) {
+					case 'N': {
+						w<<arg;
+						break;
+					}
+					case 'T': {
+						w<<arg;
+						break;
+					}
+					case 'L': {
+						w<<arg;
+						break;
+					}
+					case 'M':{
+						w<<arg;
+						break;
+					}
+					case 'S': {
+						w<<arg;
+						break;
+					}
+					case 'C': {
+						w<<arg;
+						break;
+					}
+					case 'U':{
+						w<<arg;
+						break;
+					}
+				}
+			} else if(a=='@'||a==-1) {
+				return;
+			} else {
+				w<<a;
+			}
+		}
+	}
+	template<typename T1,typename...T>
+	void useTemplateEach(std::ifstream&r,std::ofstream&w,T1 arg,T...args) {
+		char a='#';
+		while(!r.eof()) {
+			a=r.get();
+			if(a=='%') {
+				a=r.get();
+				switch(a) {
+					case 'N': {
+						w<<arg;
+						useTemplateEach(r,w,args...);
+						return;
+					}
+					case 'T': {
+						w<<arg;
+						useTemplateEach(r,w,args...);
+						return;
+					}
+					case 'L': {
+						w<<arg;
+						useTemplateEach(r,w,args...);
+						return;
+					}
+					case 'M': {
+						w<<arg;
+						useTemplateEach(r,w,args...);
+						return;
+					}
+					case 'S': {
+						w<<arg;
+						useTemplateEach(r,w,args...);
+						return;
+					}
+					case 'C': {
+						w<<arg;
+						useTemplateEach(r,w,args...);
+						return;
+					}
+					case 'U':{
+						w<<arg;
+						useTemplateEach(r,w,args...);
+						break;
+					}
+				}
+			} else if(a=='@'||a==-1) {
+				return;
+			} else {
+				w<<a;
+			}
+		}
+	}
+	template<typename Va1,typename...T1,typename Va2,typename...T2,typename...T>
+	void useTemplate(String<Va1,T1...>inName,String<Va2,T2...>outName,T...args) {
+		std::string in,out;
+		in<<inName;
+		out<<outName;
+		std::ifstream r(in.c_str(),std::ios::in);
+		std::ofstream w(out.c_str(),std::ios::out);
+		char a='#';
+		while(!r.eof()&&a!='@') {
+			a=r.get();
+		}
+		useTemplateEach(r,w,args...);
+		r.close();
+		w.close();
+	}
+}
+#endif
+
